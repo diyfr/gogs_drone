@@ -39,7 +39,7 @@ host: `gogs-database:5432`
 user: `gogs`  
 pwd : `gogs`  
 
-Il vous faudra créer le compte avec les identifiants et mot de passe que vous avez spécifiés lors de l'éxécution du script d'istallation. retrouvez les dans le fichier `.env`  
+Il vous faudra créer le compte avec les identifiants et mot de passe que vous avez spécifiés lors de l'éxécution du script d'installation. retrouvez les dans le fichier `.env`  
 
 Une fois la première configuration Gogs réalisée, le fichier de conf est accessible dans /var/ul/gogs/gogs/conf/app.ini. Vous pourrez rendre l'accès obligatoire  et bloquer la création de compte :
 
