@@ -1,0 +1,130 @@
+version: '2'
+services:
+  proxy:
+    image: traefik
+    container_name: proxy
+    networks:
+      - traefik
+    ports:
+      - "8080:8080"
+      - "443:443"
+    volumes:
+      - "/var/ul/traefik/traefik.toml:/etc/traefik/traefik.toml"
+      - "/var/ul/traefik/acme:/etc/traefik/acme"
+      - /var/run/docker.sock:/var/run/docker.sock
+    labels:
+      - "traefik.frontend.rule=Host:t.${DOMAIN}"
+      - "traefik.backend=traefik"
+      - "traefik.enable=true"
+      - "traefik.frontend.entryPoints=http"
+  registry:
+    image: registry
+    container_name: registry
+    networks:
+      - traefik
+    environment:
+      - SERVICE_NAME=registry
+      - REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY=/data
+    volumes:
+      - /var/ul/registry:/data
+    labels:
+      - "traefik.frontend.rule=Host:r.${DOMAIN}"
+      - "traefik.backend=registry"
+      - "traefik.port=5000"
+      - "traefik.enable=true"
+      - "traefik.frontend.entryPoints=https"
+      - "traefik.docker.network=traefik"
+      # REPLACE ALL $ BY $$ in password hash or use environment variable
+      - "traefik.frontend.auth.basic=$REGISTRY_BASIC_AUTH"
+  gogs:
+    image: gogs/gogs:0.11.19
+    container_name: gogs
+    depends_on:
+      - gogs-database
+    networks:
+      - traefik
+      - pg1
+    ports:
+      - "10022:22"
+    environment:
+      - SERVICE_NAME=gogs
+    volumes:
+      - /var/ul/gogs:/data
+    labels:
+      - "traefik.frontend.rule=Host:g.${DOMAIN}"
+      - "traefik.backend=gogs"
+      - "traefik.port=3000"
+      - "traefik.enable=true"
+      - "traefik.frontend.entryPoints=https"
+      - "traefik.docker.network=traefik"
+
+  gogs-database:
+    image: postgres:9.1
+    container_name: gogs-database
+    networks:
+      - pg1
+    environment:
+      - SERVICE_NAME=gogs-database
+      - POSTGRES_USER=gogs
+      - POSTGRES_PASSWORD=gogs
+    dns: "172.17.0.1"
+    volumes:
+      - gogsData:/var/lib/postgresql/data
+    labels:
+      - "traefik.frontend.rule=gd.${DOMAIN}"
+      - "traefik.port=5432"
+      - "traefik.backend=gogs-database"
+      - "traefik.enable=false"
+
+  drone-server:
+    image: drone/drone:0.7
+    container_name: drone-server
+    networks:
+      - traefik
+    environment:
+      - SERVICE_NAME=drone-server
+      - DRONE_SECRET=gogsdronecompose
+      - DRONE_OPEN=true
+      - DRONE_HOST=https://d.${DOMAIN}
+      - DRONE_GOGS=true
+      - DRONE_GOGS_URL=https://g.${DOMAIN}
+      - DRONE_GOGS_GIT_USERNAME=$GOGS_USERNAME
+      - DRONE_GOGS_GIT_PASSWORD=$GOGS_PASSWORD
+      - DRONE_GOGS_PRIVATE_MODE=true
+      - DEBUG=true
+    volumes:
+      - /var/ul/drone:/var/lib/drone
+    labels:
+      - "traefik.frontend.rule=Host:d.${DOMAIN}"
+      - "traefik.port=8000"
+      - "traefik.backend=drone-server"
+      - "traefik.enable=true"
+      - "traefik.frontend.entryPoints=https"
+      - "traefik.docker.network=traefik"
+  drone-agent:
+    image: drone/drone:0.7
+    container_name: drone-agent
+    command: agent
+    depends_on:
+      - drone-server
+    networks:
+      - traefik
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - DRONE_SERVER=ws://drone-server:8000/ws/broker
+      - DRONE_SECRET=gogsdronecompose
+    labels:
+      - "traefik.enable=false"
+
+volumes:
+  gogsData:
+   external:
+    name: gogsData
+networks:
+  pg1:
+   external:
+    name: pg1
+  traefik:
+   external:
+    name: traefik
