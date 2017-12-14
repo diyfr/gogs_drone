@@ -23,10 +23,17 @@ Une fois le script déroulé, vous pouvez lanacer la stack avec cette commande:
 ```bash
 docker-compose up -d
 ```
-Vérifier que tous les containers (traefik, gogs,gogs-database,drone-server,drone-agent, registry) 
+Vérifier que tous les containers (traefik, gogs,gogs-database,drone-server,drone-agent, registry)sont présents   
 ```bash
 docker ps -a 
 ```
+
+### Configurer gogs
+
+
+Accès à votre repository (Pour un domaine example.com):   
+https://g.example.com  
+
 Lors du premier accès à Gogs, il vous faudra configurer la connexion à la bdd  
 host: `gogs-database:5432`   
 user: `gogs`  
@@ -40,12 +47,14 @@ Une fois la première configuration Gogs réalisée, le fichier de conf est acce
 DISABLE_REGISTRATION   = true
 REQUIRE_SIGNIN_VIEW    = true
 ```
+et relancer le container 
+```bash
+docker restart gogs
+```
 
-Pour un domaine exmaple.com  
+### Autres interfaces..  
 Accès à la console Traefik (identifiant saisi lors du script d'installation):  
 http://example.com:8080  
-Accès à votre repository :  
-https://g.example.com  
 Accès à votre CI (identifiant et pwd dito compte gogs):  
 https://d.example.com  
 Accès à votre registre personnel docker (identifiant saisi lors du script d'installation):  
