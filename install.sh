@@ -48,3 +48,13 @@ echo "EMAIL=$EMAIL" >> "$ENV_FILE"
 echo "GOGS_USERNAME=$GOGS_USERNAME" >> "$ENV_FILE"
 echo "GOGS_PASSWORD=$GOGS_PASSWORD" >> "$ENV_FILE"
 echo "REGISTRY_BASIC_AUTH=$(cat .registry_pwd)" >> "$ENV_FILE"
+# CREATE DOCKER CONTAINER
+docker volume create gogsData
+# CREATE DOCKER NETWORK
+docker network create pg1
+docker network create traefik
+echo " ----------------------------------- "
+echo " Start stack -> docker-compose up -d "
+echo " ----------------------------------- "
+
+
