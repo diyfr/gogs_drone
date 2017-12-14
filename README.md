@@ -19,7 +19,7 @@ Le lancer(toujours en mode admin) et répondre aux questions. Pour les identifia
 ```bash
 ./setup.sh
 ```
-Une fois le script déroulé, vous pouvez la stack avec cette commande:  
+Une fois le script déroulé, vous pouvez lanacer la stack avec cette commande:  
 ```bash
 docker-compose up -d
 ```
