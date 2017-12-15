@@ -1,5 +1,5 @@
 # Gogs & Drone 
-Créez votre propre solution d'intégration continue :  
+Créez votre propre solution LIGHT d'intégration continue :  
 - Gogs (Gitlab light privé)  
 - Drone (CI)  
 - Registry Docker (Hébergement privé de vos images docker)  
@@ -7,7 +7,7 @@ Créez votre propre solution d'intégration continue :
 Le tout derrière le reverse proxy  'Traefik' en https avec Let's Encrypt  
 
 # Installation
-Il faut au préalable que la configuration bind9 sur votre machine ubuntu soit déjà réalisée.  
+Il faut au préalable que la configuration bind9 (Nom de domaine) sur votre machine ubuntu soit déjà réalisée.  
 Cloner le répo et rendre le script exécutable  
 ```bash
 git clone https://github.com/diyfr/gogs_drone.git  
@@ -61,5 +61,10 @@ Accès à votre registre personnel docker (identifiant saisi lors du script d'in
 https://r.example.com/v2/  
 
 Enjoy !  
+
+
+## Nota  
+Pensez à vérifier les images stockées sur le registry local, un petit nettoyage peut-être salutaire..
+https://docs.docker.com/engine/reference/commandline/image_prune/  
 
 
