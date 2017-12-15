@@ -11,3 +11,14 @@ docker_password   -> Mot de passe créé à l'installation pour le registry
 
 Pour verifier que votre image est bien dans votre registry privé  
 `https://r.example.com/v2/_catalog`
+
+
+## Utiliser votre image :  
+Il faut au préalable que docker dispose des éléments d'authentification sur votre registry  (saisi lors de l'installation et dans drone.io pour publier votre image)  
+```bash
+docker login r.example.com
+```
+ensuite récupérez votre image :
+```bash
+docker pull r.example.com/app:latest
+```
