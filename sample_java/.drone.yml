@@ -7,8 +7,8 @@ pipeline:
       - mvn package
   publish:
     image: plugins/docker
-    repo: example.com/app
-    registry: example.com
+    repo: r.example.com/app
+    registry: r.example.com
     dockerfile: Dockerfile
     tag: [ latest ]
     secrets: [ docker_username, docker_password ]
