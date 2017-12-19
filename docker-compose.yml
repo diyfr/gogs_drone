@@ -28,6 +28,7 @@ services:
       - REGISTRY_STORAGE_DELETE_ENABLED=true
     volumes:
       - /var/ul/registry:/data
+      - /var/ul/registry/lib:/var/lib/registry
     labels:
       - "traefik.frontend.rule=Host:r.${DOMAIN}"
       - "traefik.backend=registry"
