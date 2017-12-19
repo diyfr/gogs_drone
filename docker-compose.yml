@@ -25,6 +25,7 @@ services:
     environment:
       - SERVICE_NAME=registry
       - REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY=/data
+      - REGISTRY_STORAGE_DELETE_ENABLED=true
     volumes:
       - /var/ul/registry:/data
     labels:
