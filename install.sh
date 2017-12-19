@@ -6,6 +6,7 @@ echo "Create Directories"
 mkdir /var/ul
 mkdir /var/ul/gogs
 mkdir /var/ul/registry
+mkdir /var/ul/registry/lib
 mkdir /var/ul/drone
 mkdir /var/ul/traefik
 mkdir /var/ul/traefik/acme
