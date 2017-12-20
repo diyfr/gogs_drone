@@ -5,7 +5,7 @@ pipeline:
     commands:
       - mvn clean
       - mvn package
-      - cat pom.xml |grep -oPm1 "(?<=<version>)[^<]+" > .tags
+      - echo $(cat pom.xml |grep -oPm1 "(?<=<version>)[^<]+")", latest" > .tags
   publish:
     image: plugins/docker
     repo: r.example.com/myspace/app
