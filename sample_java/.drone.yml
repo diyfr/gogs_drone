@@ -8,7 +8,7 @@ pipeline:
       - cat pom.xml |grep -oPm1 "(?<=<version>)[^<]+" > .tags
   publish:
     image: plugins/docker
-    repo: r.example.com/app
+    repo: r.example.com/myspace/app
     registry: r.example.com
     dockerfile: Dockerfile
     tag: [ latest ]
