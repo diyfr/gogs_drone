@@ -20,5 +20,5 @@ docker login r.example.com
 ```
 ensuite récupérez votre image :
 ```bash
-docker pull r.example.com/app:latest
+docker pull r.example.com/myspace/app:latest
 ```
