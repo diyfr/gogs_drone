@@ -1,6 +1,6 @@
 #!/bin/sh
 
-apt-get install docker.io docker-compose git apache2-utils
+apt-get install docker.io docker-compose git apache2-utils fail2ban
 # CREATE DIRECTORIES
 echo "Create Directories"
 mkdir /var/ul
