@@ -71,7 +71,7 @@ services:
       - POSTGRES_PASSWORD=gogs
     dns: "172.17.0.1"
     volumes:
-      - gogsData:/var/lib/postgresql/data
+      - /var/ul/gogs-database:/var/lib/postgresql/data
     labels:
       - "traefik.frontend.rule=gd.${DOMAIN}"
       - "traefik.port=5432"
@@ -119,10 +119,6 @@ services:
     labels:
       - "traefik.enable=false"
 
-volumes:
-  gogsData:
-   external:
-    name: gogsData
 networks:
   pg1:
    external:
