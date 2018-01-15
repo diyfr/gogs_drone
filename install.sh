@@ -10,6 +10,7 @@ mkdir /var/ul/registry/lib
 mkdir /var/ul/drone
 mkdir /var/ul/traefik
 mkdir /var/ul/traefik/acme
+mkdir /var/ul/gogs-database
 
 echo "Define Basic Auth account for registry"
 echo "Enter registry username"
