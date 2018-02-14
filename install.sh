@@ -30,7 +30,7 @@ echo "Enter Email for let's encrypt certificate query"
 read EMAIL
 
 echo "Define Basic Auth account for traefik console"
-echo "Enter registry username"
+echo "Enter traefik console username"
 read REG_USERNAME
 htpasswd -c .traefik_pwd $REG_USERNAME
 
