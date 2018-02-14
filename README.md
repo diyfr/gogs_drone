@@ -13,11 +13,11 @@ Cloner le répo et rendre le script exécutable  
 git clone https://github.com/diyfr/gogs_drone.git  
 cd gogs_drone/  
 sudo su  
-chmod +x setup.sh  
+chmod +x install.sh  
 ```
 Le lancer(toujours en mode admin) et répondre aux questions. Pour les identifiants et mot de passe pensez à les noter
 ```bash
-./setup.sh
+./install.sh
 ```
 Une fois le script déroulé, vous pouvez lanacer la stack avec cette commande:  
 ```bash
@@ -35,19 +35,33 @@ Accès à votre repository (Pour un domaine example.com):
 https://g.example.com  
 
 Lors du premier accès à Gogs, il vous faudra configurer la connexion à la bdd  
-host: `gogs-database:5432`   
-user: `gogs`  
-pwd : `gogs`  
+type: `PostgreSQL`  
+hôte: `gogs-database:5432`   
+Utilisateur: `gogs`  
+Mot de passe : `gogs`    
+Mode SSL :`disable`  
+Nom de l'application : `<Ce que vous voulez>`  
+Emplacement racine des dépôts : <Laissez ce qui est proposé par défaut>  
+Utilisateur système : <Laissez ce qui est proposé par défaut>   
+Domaine: `<Saisissez votre domaine ex : g.example.com>`     
+Port SSH : <Laissez ce qui est proposé par défaut>    
+Utilisez le serveur SSH incorporé : <Laissez ce qui est proposé par défaut>    
+Port HTTP : <Laissez ce qui est proposé par défaut>    
+URL de l'application : `<Saisissez votre domaine ex : https://g.example.com/>`  
+Chemin des fichiers de logs : <Laissez ce qui est proposé par défaut>    
 
-Il vous faudra créer le compte avec les identifiants et mot de passe que vous avez spécifiés lors de l'éxécution du script d'installation. retrouvez les dans le fichier `.env`  
+Dans les paramètres facultatifs / Paramètres du serveur et des autre services :
+Laissez coché uniquement :
+Désactiver le formulaire d'inscription  
+Exigez l'identification pour afficher les pages  
+Optionnel:  
+Activer les recherches d'avatars unifiés  
 
-Une fois la première configuration Gogs réalisée, le fichier de conf est accessible dans /var/ul/gogs/gogs/conf/app.ini. Vous pourrez rendre l'accès obligatoire  et bloquer la création de compte :
+Dans les paramètres facultatifs / Paramètres du compte administrateur :
 
-```conf
-DISABLE_REGISTRATION   = true
-REQUIRE_SIGNIN_VIEW    = true
-```
-et relancer le container 
+Il vous faudra créer le compte avec les identifiants et mot de passe que vous avez spécifiés lors de l'éxécution du script d'installation. Retrouvez les dans le fichier `.env`  
+
+Une fois la première configuration Gogs réalisée, le fichier de conf est accessible dans /var/ul/gogs/gogs/conf/app.ini. Si vous y réalisez des modification pensez à relancer le container. 
 ```bash
 docker restart gogs
 ```
