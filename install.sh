@@ -38,7 +38,7 @@ cp traefik.toml.ori /var/ul/traefik/traefik.toml
 echo "Create /var/ul/traefik/traefik.toml configuration"
 sed -i "s/%%DOMAIN%%/${DOMAIN}/g" /var/ul/traefik/traefik.toml
 sed -i "s/%%EMAIL%%/${EMAIL}/g" /var/ul/traefik/traefik.toml
-sed -i "s/%%BASIC_AUTH%%/$(cat .traefik.pwd)/g" /var/ul/traefik/traefik.toml
+sed -i "s/%%BASIC_AUTH%%/$(cat .traefik_pwd)/g" /var/ul/traefik/traefik.toml
 
 
 echo "Generate .env file"
